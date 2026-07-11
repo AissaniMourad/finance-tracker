@@ -11,14 +11,8 @@ DB_NAME = "database.db"
 def create_app():
     app = Flask(__name__)
     app.config['SECRET_KEY'] = 'hdhffhhcsjchjs'
-    database_url = os.environ.get(
+    app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get(
         'DATABASE_URL', f'sqlite:///{DB_NAME}')
-    print(f"DATABASE URL: {database_url}")
-
-    if database_url.startswith('postgres://'):
-        database_url.replace('postgres://', 'postgresql://', 1)
-
-    app.config['SQLALCHEMY_DATABASE_URI'] = database_url
     db.init_app(app)
 
     from .views import views
