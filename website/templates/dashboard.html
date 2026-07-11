@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+
+{% block content %}
+<table class="table">
+    <thead>
+        <tr>
+            <th>Description</th>
+            <th>Amount</th>
+            <th>Type</th>
+            <th>Category</th>
+            <th>Date</th>
+        </tr>
+    </thead>
+    <tbody>
+        <div class="row mb-4">
+            <div class="col-md-4">
+                <div class="card text-white bg-success">
+                    <div class="card-body">
+                        <h5>Total Income:</h5>
+                        <h3>{{ "%.2f" | format(income) }} €</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card text-white bg-danger">
+                    <div class="card-body">
+                        <h5>Total Expenses:</h5>
+                        <h3>{{ expenses }} €</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card text-white bg-primary">
+                    <div class="card-body">
+                        <h5>Balance:</h5>
+                        <h3>{{ balance }} €</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% for transaction in transactions %}
+        <tr>
+            <td>{{ transaction.description }}</td>
+            <td>{{ "%.2f"|format(transaction.amount) }} €</td>
+            <td>{{ transaction.type }}</td>
+            <td>{{ transaction.category }}</td>
+            <td>{{ transaction.date.strftime('%Y-%m-%d %H:%M') }}</td>
+            <td>
+                <form method="POST" action="{{ url_for('views.delete_transaction', id=transaction.id) }}">
+                    <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+        <!-- Add before </body> -->
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <canvas id="pieChart" width="400" height="400"></canvas>
+
+        <script>
+            const labels = {{ categories.keys() | list | tojson }};
+            const data = {{ categories.values() | list | tojson }};
+
+            new Chart(document.getElementById('pieChart'), {
+                type: 'pie',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        data: data,
+                        backgroundColor: [
+                            '#FF6384', '#36A2EB', '#FFCE56',
+                            '#4BC0C0', '#9966FF', '#FF9F40'
+                        ]
+                    }]
+                },
+                options: {
+                    responsive: false,
+                    plugins: {
+                        legend: { position: 'bottom' }
+                    }
+                }
+            });
+        </script>
+    </tbody>
+</table>
+<br />
+
+{% endblock %}

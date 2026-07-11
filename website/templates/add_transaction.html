@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block title %}Add Transaction{% endblock%}
+
+{% block content %}
+<form method="POST">
+    <h2 align="center">Add Transaction</h2>
+    <div class="mb-3">
+        <label>Description</label>
+        <input type="text" name="description" id="description" class="form-control"
+            placeholder="Enter the desctiption" />
+    </div>
+    <div class="mb-3">
+        <label>Amount</label>
+        <input type="number" name="amount" id="amount" step="0.01" class="form-control" placeholder="Enter amount" />
+    </div>
+    <div class="mb-3">
+        <label>Type</label>
+        <select name="type" class="form-control">
+            <option value="income">Income</option>
+            <option value="expense">Expense</option>
+        </select>
+    </div>
+    <div class="mb-3">
+        <label>Category</label>
+        <select name="category" class="form-control">
+            <option value="food">Food</option>
+            <option value="transport">Transport</option>
+            <option value="entertainment">Entertainment</option>
+            <option value="health">Health</option>
+            <option value="salary">Salary</option>
+            <option value="other">Other</option>
+        </select>
+    </div>
+    <br />
+    <button type="submit" class="btn btn-primary">Add Transaction</button>
+    <a href="/" class="btn btn-secondary">Cancel</a>
+</form>
+{% endblock %}
