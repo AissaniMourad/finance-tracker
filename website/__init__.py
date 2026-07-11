@@ -13,6 +13,7 @@ def create_app():
     app.config['SECRET_KEY'] = 'hdhffhhcsjchjs'
     database_url = os.environ.get(
         'DATABASE_URL', f'sqlite:///{DB_NAME}')
+    print(f"DATABASE URL: {database_url}")
 
     if database_url.startswith('postgres://'):
         database_url.replace('postgres://', 'postgresql://', 1)
