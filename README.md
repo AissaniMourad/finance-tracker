@@ -21,8 +21,4 @@ pip install -r requirements.txt
 python main.py
 
 ## Live Demo
-<<<<<<< HEAD
-🌐 [finance-tracker-qpky.onrender.com](https://finance-tracker-qpky.onrender.com)
-=======
 🌐 [Finance Tracker Live](https://finance-tracker-qpky.onrender.com)
->>>>>>> 8794babb52dd87213838eb9e47b0027121c2014b
